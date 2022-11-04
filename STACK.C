@@ -9,7 +9,7 @@ void push()
      }
    else
      {
-       printf("enter the number in stack");
+       printf("enter the number in stack=");
        scanf("%d",&x); 
        top++;
        stack[top]=x;   
@@ -19,7 +19,7 @@ int pop()
   { int del;
      if(top==-1)
        {
-         printf("stsck overflow");
+         printf("stack overflow");
        }  
      else
        { 
@@ -29,14 +29,15 @@ int pop()
        }
     }
 void display()
-   { if(top==-1)
+   { int i;
+       if(top==-1)
       {
-        printf("STACK is empty");
+        printf("STACK is empty\n");
       }
      else
       {
         for(i=0;i<size;i++)
-        printf("%d",stack[i]);
+        printf("%d\n",stack[i]);
       } 
     }
 void main()
@@ -69,4 +70,4 @@ void main()
         }
   }
 }
-               
+            
