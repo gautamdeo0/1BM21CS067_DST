@@ -1,70 +1,110 @@
 #include<stdio.h>
-#include<stdlib.h>
-#define qsize 3
-int count=0;
-void insert_rear(int q[],int item,int*r)
+# define MAX 5
+int cqueue_arr[MAX];
+int front = -1;
+int rear = -1;
+void insert(int item)
 {
-    if (count==qsize)
-    printf("queue overflow\n");
-    else
-    {
-        (*r)++;
-        (*r)=(*r)%qsize;
-        q[*r]=item;
-        count++;
-    }
+if((front == 0 && rear == MAX-1) || (front == rear+1))
+{
+printf("Queue Overflow n");
+return;
 }
-int delete_front (int q[],int*f,int*r)
+if(front == -1)
 {
-    int del_item;
-    if (count==0)
-    {
-        printf("queue underflow");
-    }
-    else
-    {
-        del_item=q[*f];
-        *f=((*f)++)%qsize;
-        count--;
-        return del_item;
-    }
+front = 0;
+rear = 0;
 }
-void display(int q[],int * f)
+else
 {
-    int i,temp;
-    temp=*f;
-    for(i=0;i<count;i++)
-    {
-        printf("%d\n",q[temp]);
-        temp=(temp+1)%qsize;
-    }
+if(rear == MAX-1)
+rear = 0;
+else
+rear = rear+1;
 }
-void main()
+cqueue_arr[rear] = item ;
+}
+void deletion()
 {
-    int r=-1;
-    int f=0;
-    int item,q[qsize];
-    int n,i;
-    while(1)
+if(front == -1)
 {
-    printf("choose from the following\n1.Insert\n2.Delete\n3.Display\n4.Exit\n");
-    scanf("%d",&n);
-    
-    switch(n)
-    {
-        case 1:printf("enter the item to be inserted\n");
-            scanf("%d",&item);
-            insert_rear(q,item,&r);
-             break;
-        case 2:i=delete_front(q,&f,&r);
-            printf("item being deleted is %d\n",i);
-             break;
-        case 3:display(q,&f);
-             break;
-        case 4:exit(0);
-        default:printf("enter correct option number\n");
-             break;
-    }
-    }
-
+printf("Queue Underflown");
+return ;
+}
+printf("Element deleted from queue is : %dn",cqueue_arr[front]);
+if(front == rear)
+{
+front = -1;
+rear=-1;
+}
+else
+{
+if(front == MAX-1)
+front = 0;
+else
+front = front+1;
+}
+}
+void display()
+{
+int front_pos = front,rear_pos = rear;
+if(front == -1)
+{
+printf("Queue is emptyn");
+return;
+}
+printf("Queue elements :n");
+if( front_pos <= rear_pos )
+while(front_pos <= rear_pos)
+{
+printf("%d ",cqueue_arr[front_pos]);
+front_pos++;
+}
+else
+{
+while(front_pos <= MAX-1)
+{
+printf("%d ",cqueue_arr[front_pos]);
+front_pos++;
+}
+front_pos = 0;
+while(front_pos <= rear_pos)
+{
+printf("%d ",cqueue_arr[front_pos]);
+front_pos++;
+}
+}
+printf("n");
+}
+int main()
+{
+int choice,item;
+do
+{
+printf("1.Insert\n");
+printf("2.Delete\n");
+printf("3.Display\n");
+printf("4.Quit\n");
+printf("Enter your choice : ");
+scanf("%d",&choice);
+switch(choice)
+{
+case 1 :
+printf("Input the element for insertion in queue : ");
+scanf("%d", &item);
+insert(item);
+break;
+case 2 :
+deletion();
+break;
+case 3:
+display();
+break;
+case 4:
+break;
+default:
+printf("Wrong choicen");
+}
+}while(choice!=4);
+return 0;
 }
